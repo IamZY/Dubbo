@@ -13,7 +13,6 @@
             <groupId>com.ntuzy.gmall</groupId>
             <artifactId>gmall-interface</artifactId>
             <version>1.0-SNAPSHOT</version>
-
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
