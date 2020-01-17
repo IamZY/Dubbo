@@ -1,6 +1,7 @@
 package com.ntuzy.gmall.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.ntuzy.gmall.bean.UserAddress;
 import com.ntuzy.gmall.service.UserService;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+    @HystrixCommand
     @Override
     public List<UserAddress> getUserAddressList(String userId) {
 

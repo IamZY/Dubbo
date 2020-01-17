@@ -1,6 +1,7 @@
 package com.ntuzy.gmall.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.ntuzy.gmall.bean.UserAddress;
 import com.ntuzy.gmall.service.OrderService;
 import com.ntuzy.gmall.service.UserService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,15 +25,22 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Reference
+    @Reference(loadbalance = "random")
     UserService userService;
 
+    @HystrixCommand(fallbackMethod = "hello")
     @Override
     public List<UserAddress> initOrder(String userId) {
         System.out.println(userId);
-
         // 查询用户的收货地址
         List<UserAddress> userAddressList = userService.getUserAddressList(userId);
         return userAddressList;
     }
+
+    public List<UserAddress> hello(String userId) {
+        return Arrays.asList(new UserAddress(10,"测试","1","测试","1","a"));
+    }
+
+
+
 }
