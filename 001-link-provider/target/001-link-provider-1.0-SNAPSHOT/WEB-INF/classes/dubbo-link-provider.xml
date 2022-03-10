@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 声明服务提供者 保证它的唯一性  它是dubbo内部使用的唯一标识 -->
+    <dubbo:application name="001-link-provider" />
+    <!--
+        指定dubbo的协议名称和端口号
+        name 指定的协议 dubbo协议
+        port 协议的端口号 默认为20880
+     -->
+    <dubbo:protocol name="dubbo" port="20880" />
+
+    <!-- 暴漏服务 dubbo:service interface 暴漏服务的全类型 ref 引用接口在spring
+     容器的标识名称  registry 使用直连的方式 不适用注册：N/A-->
+    <dubbo:service interface="com.ntuzy.dubbo.service.SomeService" ref="someServiceImpl" registry="N/A" />
+
+    <bean id="someServiceImpl" class="com.ntuzy.dubbo.service.impl.SomeServiceImpl" />
+</beans>
